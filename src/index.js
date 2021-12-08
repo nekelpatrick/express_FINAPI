@@ -22,9 +22,8 @@ function getBalance(statement) {
   const balance = statement.reduce((acc, operation) => {
     if (operation.type === "credit") {
       return acc + operation.amount;
-    } else {
-      return acc - operation.amount;
     }
+    return acc - operation.amount;
   }, 0);
 
   return balance;
@@ -96,7 +95,7 @@ app.get("/statement/date", verifyIfExistsAccountCPF, (request, response) => {
   const { customer } = request;
   const { date } = request.query;
 
-  const dateFormat = new Date(date + "00:00");
+  const dateFormat = new Date(`${date}00:00`);
 
   const statement = customer.statement.filter(
     (statement) =>
